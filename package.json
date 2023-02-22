@@ -5,5 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "@aroleaf/parser": "^2.4.1"
-  }
+  },
+  "types": "index.d.ts"
 }
