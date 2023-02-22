@@ -1,0 +1,9 @@
+{
+  "name": "@aroleaf/arguments",
+  "version": "0.1.0",
+  "description": "A simple CLI argument parser",
+  "main": "index.js",
+  "dependencies": {
+    "@aroleaf/parser": "^2.4.1"
+  }
+}
