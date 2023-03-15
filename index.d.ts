@@ -7,10 +7,10 @@
  * @param options.transformer - a function to transform arguments
  * @returns the parsed arguments
  */
-export async function parse<T>(str: string, options: ArgumentParserOptions<T>): ArgumentParserResults<T>;
+export function parse<T>(str: string, options: ArgumentParserOptions<T>): Promise<ArgumentParserResults<T>>;
 
 /** A function to transform an argument to the correct data type. */
-export type TransformFunction<T> = (arg: string, arg: ArgumentParserArgumentData<T>, option?: ArgumentParserOptionData<T>) => Promise<T>
+export type TransformFunction<T> = (value: string, argument: ArgumentParserArgumentData<T>, option?: ArgumentParserOptionData<T>) => Promise<T>
 
 export interface ArgumentParserArgumentData<T> {
   /** The name of the argument. */
