@@ -17,12 +17,13 @@ const lexer = new Lexer({
 });
 
 
-module.exports = async function parse(str, { args = [], options = [], transformer = arg => arg } = {}) {
+module.exports = async function parse(str, { args = [], options = [], transform = arg => arg } = {}) {
   const tokens = lexer.parse(str);
   
   const out = {
     args: {},
     options: {},
+    raw: str,
   }
 
   let currentToken = 0;
@@ -40,7 +41,11 @@ module.exports = async function parse(str, { args = [], options = [], transforme
         currentToken++;
         continue;
       }
-      const value = await transformer(token.value, argumentData, optionData);
+      const value = await [
+        argumentData.transform?.bind(argumentData),
+        optionData.transform?.bind(optionData),
+        transform,
+      ].find(f => f)?.(token.value, argumentData, optionData);
       if (value === undefined) continue;
       currentToken++;
       if (optionData.args.length === 1 && optionData.name === argumentData.name) return value;
@@ -77,7 +82,10 @@ module.exports = async function parse(str, { args = [], options = [], transforme
           currentToken++;
           continue;
         }
-        const res = await transformer(value, argumentData);
+        const res = await [
+          argumentData.transform?.bind(argumentData),
+          transform,
+        ].find(f => f)?.(tokens[currentToken].value, argumentData);
         if (res != null) {
           out.args[argumentData.name] = res;
           currentToken++;
