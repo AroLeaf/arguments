@@ -18,7 +18,7 @@ export interface ArgumentParserArgumentData<T> {
   /** Whether the argument is required or not. */
   required?: boolean
   /** The function to use to transform the arguments to the correct data type. */
-  transform: TransformFunction<T>
+  transform?: TransformFunction<T>
 }
 
 export interface ArgumentParserOptionData<T> {
@@ -29,7 +29,7 @@ export interface ArgumentParserOptionData<T> {
   /** The arguments for this option. */
   args?: ArgumentParserArgumentData<T>[]
   /** The function to use to transform the arguments to the correct data type. */
-  transform: TransformFunction<T>
+  transform?: TransformFunction<T>
   /** Whether the option is required or not. */
   required?: boolean
 }
@@ -43,7 +43,7 @@ export interface ArgumentParserOptions<T = any> {
   /** The named options this parser should recognize. */
   options?: ArgumentParserOptionData<T>[]
   /** The function to use to transform the arguments to the correct data type. */
-  transform: TransformFunction<T>
+  transform?: TransformFunction<T>
 }
 
 /**
