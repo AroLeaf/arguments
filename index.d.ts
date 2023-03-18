@@ -10,7 +10,9 @@
 export function parse<T>(str: string, options: ArgumentParserOptions<T>): Promise<ArgumentParserResults<T>>;
 
 /** A function to transform an argument to the correct data type. */
-export type TransformFunction<T> = (value: string, argument: ArgumentParserArgumentData<T>, option?: ArgumentParserOptionData<T>) => Promise<T>
+export type ArgumentTransformFunction<T> = (value: string, argument: ArgumentParserArgumentData<T>, option?: ArgumentParserOptionData<T>) => Promise<T>
+export type OptionTransformFunction<T> = (value: string, option: ArgumentParserOptionData<T>) => Promise<T>
+export type TransformFunction<T> = ArgumentTransformFunction<T> | OptionTransformFunction<T>
 
 export interface ArgumentParserArgumentData<T> {
   /** The name of the argument. */
@@ -18,7 +20,7 @@ export interface ArgumentParserArgumentData<T> {
   /** Whether the argument is required or not. */
   required?: boolean
   /** The function to use to transform the arguments to the correct data type. */
-  transform?: TransformFunction<T>
+  transform?: ArgumentTransformFunction<T>
 }
 
 export interface ArgumentParserOptionData<T> {
@@ -29,7 +31,7 @@ export interface ArgumentParserOptionData<T> {
   /** The arguments for this option. */
   args?: ArgumentParserArgumentData<T>[]
   /** The function to use to transform the arguments to the correct data type. */
-  transform?: TransformFunction<T>
+  transform?: OptionTransformFunction<T>
   /** Whether the option is required or not. */
   required?: boolean
 }

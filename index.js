@@ -30,7 +30,13 @@ module.exports = async function parse(str, { args = [], options = [], transform 
   let currentArg = 0;
 
   async function parseOption(optionData) {
-    if (!optionData.args?.length) return true;
+    if (!optionData.args?.length) {
+      const value = await [
+        optionData.transform?.bind(optionData),
+        transform,
+      ].find(f => f)?.(true, optionData);
+      return value;
+    };
     
     let option = {};
     
