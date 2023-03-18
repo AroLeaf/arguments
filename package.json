@@ -1,6 +1,6 @@
 {
   "name": "@aroleaf/arguments",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A simple CLI argument parser",
   "main": "index.js",
   "dependencies": {
